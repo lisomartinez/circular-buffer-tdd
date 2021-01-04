@@ -16,6 +16,14 @@ class TestCircularBuffer:
         yield buffer
         buffer = None
 
+    @pytest.fixture()
+    def filled_up_buffer(self) -> CircularBuffer:
+        buffer = CircularBuffer(CAPACITY)
+        for n in range(0, CAPACITY):
+            buffer.put(n)
+        yield buffer
+        buffer = None
+
     def test_is_empty_after_creation(self, buffer: CircularBuffer):
         assert_that(buffer.is_empty()).is_true()
 
@@ -50,3 +58,6 @@ class TestCircularBuffer:
     def test_capacity_is_adjustable(self):
         buffer = CircularBuffer(CAPACITY + 10)
         assert_that(buffer.capacity()).is_equal_to(CAPACITY + 10)
+
+    def test_fill_to_capacity(self, filled_up_buffer: CircularBuffer):
+        assert_that(filled_up_buffer.is_full()).is_true()
