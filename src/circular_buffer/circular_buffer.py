@@ -10,7 +10,7 @@ class CircularBuffer:
         return self.__index == self.__outdex
 
     def is_full(self):
-        return self.__index == self.__capacity
+        return (self.__index - self.__outdex) == self.__capacity
 
     def put(self, value):
         self.__values[self.__index] = value

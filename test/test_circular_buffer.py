@@ -61,3 +61,7 @@ class TestCircularBuffer:
 
     def test_fill_to_capacity(self, filled_up_buffer: CircularBuffer):
         assert_that(filled_up_buffer.is_full()).is_true()
+
+    def test_is_not_full_after_get_from_full_buffer(self, filled_up_buffer: CircularBuffer):
+        filled_up_buffer.get()
+        assert_that(filled_up_buffer.is_full()).is_false()
