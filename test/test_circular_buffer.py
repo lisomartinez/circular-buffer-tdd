@@ -30,3 +30,11 @@ class TestCircularBuffer:
         buffer.put(42)
         value = buffer.get()
         assert_that(value).is_equal_to(42)
+
+    def test_get_is_fifo(self, buffer: CircularBuffer):
+        buffer.put(41)
+        buffer.put(42)
+        buffer.put(43)
+        assert_that(buffer.get()).is_equal_to(41)
+        assert_that(buffer.get()).is_equal_to(42)
+        assert_that(buffer.get()).is_equal_to(43)
