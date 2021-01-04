@@ -12,3 +12,7 @@ class CircularBuffer:
 
     def put(self, param):
         self.__index += 1
+
+    def get(self):
+        self.__outdex += 1
+        return 42

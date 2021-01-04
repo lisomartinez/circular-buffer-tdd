@@ -20,3 +20,13 @@ class TestCircularBuffer:
     def test_is_not_empty_after_put(self, buffer: CircularBuffer):
         buffer.put(42)
         assert_that(buffer.is_empty()).is_false()
+
+    def test_is_empty_after_put_then_get(self, buffer: CircularBuffer):
+        buffer.put(42)
+        buffer.get()
+        assert_that(buffer.is_empty()).is_true()
+
+    def test_get_equals_put_for_one_item(self, buffer: CircularBuffer):
+        buffer.put(42)
+        value = buffer.get()
+        assert_that(value).is_equal_to(42)
