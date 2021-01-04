@@ -1,9 +1,10 @@
 class CircularBuffer:
 
-    def __init__(self) -> None:
+    def __init__(self, capacity) -> None:
         self.__index = 0
         self.__outdex = 0
-        self.__values = [None] * 10
+        self.__values = [None] * capacity
+        self.__capacity = capacity
 
     def is_empty(self):
         return self.__index == self.__outdex
@@ -19,3 +20,6 @@ class CircularBuffer:
         value = self.__values[self.__outdex]
         self.__outdex += 1
         return value
+
+    def capacity(self):
+        return self.__capacity
