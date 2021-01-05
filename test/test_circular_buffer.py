@@ -83,3 +83,23 @@ class TestCircularBuffer:
         buffer.get()
         buffer.put(3)
         assert_that(buffer.is_full()).is_true()
+
+    def test_put_to_full_fails(self):
+        buffer = CircularBuffer(1)
+        buffer.put(1)
+        with pytest.raises(Exception):
+            buffer.put(2)
+
+    def test_get_from_empty_returns_default_value(self):
+        buffer = CircularBuffer(1)
+        with pytest.raises(Exception):
+            buffer.get()
+
+    def test_put_to_full_does_not_damage_contents(self):
+        buffer = CircularBuffer(1)
+        buffer.put(1)
+        with pytest.raises(Exception):
+            buffer.put(2)
+        assert_that(buffer.get()).is_equal_to(1)
+        assert_that(buffer.is_empty()).is_true()
+
