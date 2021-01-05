@@ -65,3 +65,21 @@ class TestCircularBuffer:
     def test_is_not_full_after_get_from_full_buffer(self, filled_up_buffer: CircularBuffer):
         filled_up_buffer.get()
         assert_that(filled_up_buffer.is_full()).is_false()
+
+    def test_force_a_buffer_wraparound(self):
+        buffer = CircularBuffer(2)
+        buffer.put(1)
+        buffer.put(2)
+        buffer.get()
+        buffer.put(3)
+        assert_that(buffer.get()).is_equal_to(2)
+        assert_that(buffer.get()).is_equal_to(3)
+        assert_that(buffer.is_empty()).is_true()
+
+    def test_full_after_wrapping(self):
+        buffer = CircularBuffer(2)
+        buffer.put(1)
+        buffer.put(2)
+        buffer.get()
+        buffer.put(3)
+        assert_that(buffer.is_full()).is_true()
